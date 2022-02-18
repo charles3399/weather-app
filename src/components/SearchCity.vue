@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 mt-4 text-center">
+  <div class="p-4 mt-1 text-center">
       <input type="text" placeholder="Search a city" class="p-4 rounded-full w-3/6 shadow-xl">
   </div>
 </template>
