@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Klee+One&family=Mulish&family=Titillium+Web&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
+    font-family: 'Klee One', cursive;
+    font-family: 'Mulish', sans-serif;
+    font-family: 'Titillium Web', sans-serif;
 }
