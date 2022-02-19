@@ -1,7 +1,9 @@
 <template>
   <div class="m-4">
     <Title />
-    <SearchCity :city="cityName" />
+    <div class="p-4 mt-1 text-center">
+      <input type="text" placeholder="Search a city" class="p-4 rounded-full w-3/6 shadow-xl">
+    </div>
     <div v-if="!loading">
       <WeatherCard :weather="weatherData" />
     </div>
@@ -13,7 +15,6 @@
 
 <script>
 import Title from './components/Title.vue'
-import SearchCity from './components/SearchCity.vue'
 import WeatherCard from './components/WeatherCard.vue'
 import {ref} from 'vue'
 
@@ -21,7 +22,6 @@ export default {
   name: 'App',
   components: {
     Title,
-    SearchCity,
     WeatherCard
   },
   setup() {
