@@ -1,6 +1,6 @@
 <template>
   <div class="p-3 flex justify-center">
-      <figure class="p-2 border-4 border-white rounded-xl w-6/12 shadow-2xl bg-transparent text-white tracking-wide">
+      <figure class="p-2 border-4 border-white rounded-xl 2xl:w-6/12 xl:w-6/12 lg:w-6/12 md:w-6/12 w-full shadow-2xl bg-transparent text-white tracking-wide">
           <div class="text-center mb-3">
               <h3 class="text-xl font-bold tracking-wider">{{weatherData.city}}, {{weatherData.countryName}}</h3>
           </div>

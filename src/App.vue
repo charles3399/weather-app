@@ -1,16 +1,16 @@
 <template>
   <div class="m-4">
     <Title />
-    <div class="p-4 mt-1 text-center">
+    <div class="px-1 py-4 mt-1 text-center">
       <form @submit.prevent="getWeatherData">
-        <input v-model="cityName" type="text" placeholder="Search a city" class="p-4 rounded-full w-3/6 shadow-xl">
+        <input v-model="cityName" type="text" placeholder="Search a city" class="p-4 rounded-full 2xl:w-3/6 xl:w-3/6 lg:w-3/6 md:w-3/6 w-full shadow-xl">
       </form>
     </div>
     <div v-if="!loading">
       <WeatherCard :weather="weatherData" />
     </div>
     <div class="text-center p-2" v-else>
-      <h3 class="text-white font-bold text-4xl">{{loadingMessage}} <i :class="icon"></i></h3>
+      <h3 class="text-white font-bold 2xl:text-4xl xl:text-4xl lg:text-xl text-lg">{{loadingMessage}} <i :class="icon"></i></h3>
     </div>
   </div>
 </template>
