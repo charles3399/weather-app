@@ -7,12 +7,7 @@
       </form>
     </div>
     <div v-if="!loading">
-      <div class="text-center p-2" v-if="cityFound == false">
-        <h3 class="text-white font-bold text-4xl">There's no such city</h3>
-      </div>
-      <div v-else>
-        <WeatherCard :weather="weatherData" />
-      </div>
+      <WeatherCard :weather="weatherData" />
     </div>
     <div class="text-center p-2" v-else>
       <h3 class="text-white font-bold text-4xl">{{loadingMessage}} <i :class="icon"></i></h3>
@@ -34,7 +29,6 @@ export default {
   setup() {
     const icon = ref('fa-solid fa-cloud-sun-rain')
     const weatherData = ref([])
-    const cityFound = ref(false)
     const cityName = ref(null)
     const apiKey = ref(process.env.VUE_APP_API_KEY)
     const loading = ref(true)
@@ -47,20 +41,17 @@ export default {
         const data = await response.json()
         weatherData.value =  data
         loading.value = false
-        cityFound.value = true
         loadingMessage.value = 'Searching city'
         icon.value = 'fa-solid fa-magnifying-glass-location'
       }
       catch(error) {
         alert(error.message)
-        cityFound.value = false
       }
     }
 
     return {
       icon,
       weatherData,
-      cityFound,
       cityName,
       apiKey,
       loading,
