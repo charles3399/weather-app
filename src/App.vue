@@ -38,11 +38,17 @@ export default {
       try {
         loading.value = true
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=metric`)
-        const data = await response.json()
-        weatherData.value =  data
-        loading.value = false
-        loadingMessage.value = 'Searching city'
-        icon.value = 'fa-solid fa-magnifying-glass-location'
+        if(response.status >= 200 && response.status <= 299) {
+          const data = await response.json()
+          weatherData.value =  data
+          loading.value = false
+          loadingMessage.value = 'Searching city'
+          icon.value = 'fa-solid fa-magnifying-glass-location'
+        }
+        else {
+          alert('No such city found')
+          location.reload()
+        }
       }
       catch(error) {
         alert(error.message)
