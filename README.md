@@ -1,4 +1,6 @@
-# weather-app
+# Weather App
+<p>A simple weather app using Vue and OpenWeatherMap API</p>
+<a href='https://weatherlang.netlify.app/' target="_blank">https://weatherlang.netlify.app/</a>
 
 ## Project setup
 ```
