@@ -30,7 +30,7 @@ export default {
     const icon = ref('fa-solid fa-cloud-sun-rain')
     const weatherData = ref([])
     const cityName = ref(null)
-    const apiKey = ref(process.env.VUE_APP_API_KEY)
+    const apiKey = ref('fdd7b594a9c25f2b77bf2df3cb47f644')
     const loading = ref(true)
     const loadingMessage = ref('Ang buhay ay weather weather lang')
 
