@@ -61,15 +61,20 @@ export default {
     }
 
     const changeUnit = async () => {
-      loading.value = true
+      if (cityName.value == '') {
+        location.reload()
+      }
+      else {
+        loading.value = true
 
-      unitMode.value === 'metric' ? [unitMode.value = 'imperial', unitText.value = 'F'] : [unitMode.value = 'metric', unitText.value = 'C']
+        unitMode.value === 'metric' ? [unitMode.value = 'imperial', unitText.value = 'F'] : [unitMode.value = 'metric', unitText.value = 'C']
 
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
-      const data = await response.json()
-      weatherData.value = data
-      icon.value = 'fa-solid fa-temperature-half'
-      loading.value = false
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
+        const data = await response.json()
+        weatherData.value = data
+        icon.value = 'fa-solid fa-temperature-half'
+        loading.value = false
+      }
     }
 
     return {
