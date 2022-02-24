@@ -7,7 +7,7 @@
           <div class="text-center mb-3">
             <h3 class="text-6xl font-bold">{{weatherData.temperature}}&#176;</h3>
             <p class="text-2xl"><i :class="main"></i> {{weatherData.weather_description}}</p>
-            <p class="text-lg">Feels like: {{weatherData.feelslike}}&#176;C</p>
+            <p class="text-lg">Feels like: {{weatherData.feelslike}}&#176;</p>
           </div>
           <div class="text-center text-lg m-5 flex flex-row justify-center gap-8">
             <p>Highest: <span class="font-bold">{{weatherData.max_temperature}}&#176;</span></p>
