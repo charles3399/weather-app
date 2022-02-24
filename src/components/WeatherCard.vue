@@ -65,7 +65,7 @@ export default {
     if(weatherstatus.includes('Snow')) {
       this.main = 'fa-solid fa-snowflake'
     }
-    if(weatherstatus.includes('Haze')) {
+    if(weatherstatus.includes('Haze') || weatherstatus.includes('Fog')) {
       this.main = 'fa-solid fa-smog'
     }
   }
