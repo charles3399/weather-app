@@ -40,7 +40,11 @@ export default {
     const loadingMessage = ref('Ang buhay ay weather weather lang')
 
     const getWeatherData = async () => {
-      try {
+      if(cityName.value == '' || cityName.value == null) {
+        alert('Please input a city')
+        location.reload()
+      }
+      else {
         loading.value = true
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
         if(response.status >= 200 && response.status <= 299) {
@@ -55,13 +59,11 @@ export default {
           location.reload()
         }
       }
-      catch(error) {
-        alert(error.message)
-      }
     }
 
     const changeUnit = async () => {
       if (cityName.value == '') {
+        alert('Please type a city before changing unit of measurement')
         location.reload()
       }
       else {
