@@ -46,8 +46,8 @@ export default {
         weather_description: this.weather.weather[0].description,
         max_temperature: Math.round(this.weather.main.temp_max * 10) / 10,
         min_temperature: Math.round(this.weather.main.temp_min * 10) / 10,
-        sunrise_time: moment(this.weather.sys.sunrise * 1000).format('LT'),
-        sunset_time: moment(this.weather.sys.sunset * 1000).format('LT')
+        sunrise_time: moment.unix(this.weather.sys.sunrise).utc().format('LT'),
+        sunset_time: moment.unix(this.weather.sys.sunset).utc().format('LT')
       }
     }
   },
@@ -65,7 +65,7 @@ export default {
     if(weatherstatus.includes('Snow')) {
       this.main = 'fa-solid fa-snowflake'
     }
-    if(weatherstatus.includes('Haze') || weatherstatus.includes('Fog')) {
+    if(weatherstatus.includes('Haze') || weatherstatus.includes('Fog') || weatherstatus.includes('Mist')) {
       this.main = 'fa-solid fa-smog'
     }
   }
