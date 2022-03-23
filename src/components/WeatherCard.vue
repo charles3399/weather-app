@@ -68,6 +68,9 @@ export default {
     if(weatherstatus.includes('Haze') || weatherstatus.includes('Fog') || weatherstatus.includes('Mist')) {
       this.main = 'fa-solid fa-smog'
     }
+    if(weatherstatus.includes('Dust')) {
+      this.main = 'fa-solid fa-wind'
+    }
   }
 }
 </script>
