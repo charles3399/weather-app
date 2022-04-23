@@ -40,10 +40,10 @@ export default {
     const getWeatherData = async () => {
       if(cityName.value == '' || cityName.value == null) {
         alert('Please input a city')
-        location.reload()
       }
       else {
         loading.value = true
+        cityName.value.trim().length
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
         if(response.status >= 200 && response.status <= 299) {
           const data = await response.json()
