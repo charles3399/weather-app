@@ -6,7 +6,7 @@
         <input v-model="cityName" type="text" placeholder="Search a city or location" class="pb-1 border-b-2 border-gray-500 outline-none focus:border-gray-700 2xl:w-3/6 xl:w-3/6 lg:w-3/6 md:w-3/6 w-full font-bold uppercase tracking-wider placeholder-white placeholder-opacity-50 text-center text-white bg-transparent">
       </form>
     </div>
-      <p class="text-3xl font-bold text-white inline-block relative left-1/2 text-center cursor-pointer" v-if="weatherData != ''" @click="changeUnit">&nbsp;&deg;{{ unitText }}</p>
+      <p class="text-3xl inline-block relative font-bold text-white left-1/2 cursor-pointer" v-if=" weatherData != '' " @click="changeUnit">&deg;{{ unitText }}</p>
     <div v-if="!loading">
       <WeatherCard :weather="weatherData" />
     </div>
@@ -48,14 +48,12 @@ export default {
         if(response.status >= 200 && response.status <= 299) {
           const data = await response.json()
           weatherData.value =  data
-          loadingMessage.value = 'Updating..'
+          loadingMessage.value = 'Searching...'
           icon.value = 'fa-solid fa-magnifying-glass-location'
           loading.value = false
-          console.log(data)
         }
         else {
           alert('No such city found or spelling error')
-          location.reload()
         }
       }
     }
@@ -63,7 +61,6 @@ export default {
     const changeUnit = async () => {
       if (cityName.value == '') {
         alert('Please type a city before changing unit of measurement')
-        location.reload()
       }
       else {
         loading.value = true
@@ -73,6 +70,7 @@ export default {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
         const data = await response.json()
         weatherData.value = data
+        loadingMessage.value = 'Updating...'
         icon.value = 'fa-solid fa-temperature-half'
         loading.value = false
       }

@@ -43,14 +43,17 @@ export default {
   setup(props) {
     const bg = ref('')
     const main = ref('')
+    const tempConvert = (temp) => {
+      return Math.round(temp * 10) / 10
+    }
     const weatherData = ref({
       countryName: props.weather.sys.country,
       city: props.weather.name,
-      feelslike: Math.round(props.weather.main.feels_like * 10) / 10,
-      temperature: Math.round(props.weather.main.temp * 10) / 10,
+      feelslike: tempConvert(props.weather.main.feels_like),
+      temperature: tempConvert(props.weather.main.temp),
       weather_description: props.weather.weather[0].description,
-      max_temperature: Math.round(props.weather.main.temp_max * 10) / 10,
-      min_temperature: Math.round(props.weather.main.temp_min * 10) / 10,
+      max_temperature: tempConvert(props.weather.main.temp_max),
+      min_temperature: tempConvert(props.weather.main.temp_min),
       sunrise_time: moment.utc(props.weather.sys.sunrise, 'X').add(props.weather.timezone, 'seconds').format('LT'),
       sunset_time: moment.utc(props.weather.sys.sunset, 'X').add(props.weather.timezone, 'seconds').format('LT')
     })
