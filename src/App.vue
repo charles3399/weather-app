@@ -33,7 +33,7 @@ export default {
     const cityName = ref(null)
     const unitMode = ref('metric')
     const unitText = ref('C')
-    const apiKey = ref('fdd7b594a9c25f2b77bf2df3cb47f644')
+    const apiKey = ref(process.env.VUE_APP_API_KEY)
     const loading = ref(true)
     const loadingMessage = ref('Ang buhay ay weather weather lang')
 
