@@ -31,49 +31,55 @@
 
 <script>
 import moment from 'moment'
+import { ref, onMounted } from 'vue'
 
 export default {
   name: 'WeatherCard',
-  props: ['weather'],
-  data() {
-    return {
-      main: '',
-      weatherData: {
-        countryName: this.weather.sys.country,
-        city: this.weather.name,
-        feelslike: Math.round(this.weather.main.feels_like * 10) / 10,
-        temperature: Math.round(this.weather.main.temp * 10) / 10,
-        weather_description: this.weather.weather[0].description,
-        max_temperature: Math.round(this.weather.main.temp_max * 10) / 10,
-        min_temperature: Math.round(this.weather.main.temp_min * 10) / 10,
-        sunrise_time: moment.unix(this.weather.sys.sunrise).format('LT'),
-        sunset_time: moment.unix(this.weather.sys.sunset).format('LT')
-      }
+  props: {
+    weather: {
+      type: Object
     }
   },
-  mounted() {
-    let weatherstatus = this.weather.weather[0].main
-    if(weatherstatus.includes('Clouds')) {
-      this.main = 'fa-solid fa-cloud'
-    }
-    if(weatherstatus.includes('Thunderstorm') || weatherstatus.includes('Rain')) {
-      this.main = 'fa-solid fa-cloud-showers-heavy'
-    }
-    if(weatherstatus.includes('Clear')) {
-      this.main = 'fa-solid fa-sun'
-    }
-    if(weatherstatus.includes('Snow')) {
-      this.main = 'fa-solid fa-snowflake'
-    }
-    if(weatherstatus.includes('Haze') || weatherstatus.includes('Fog') || weatherstatus.includes('Mist')) {
-      this.main = 'fa-solid fa-smog'
-    }
-    if(weatherstatus.includes('Dust')) {
-      this.main = 'fa-solid fa-wind'
+  setup(props) {
+    const main = ref('')
+    const weatherData = ref({
+      countryName: props.weather.sys.country,
+      city: props.weather.name,
+      feelslike: Math.round(props.weather.main.feels_like * 10) / 10,
+      temperature: Math.round(props.weather.main.temp * 10) / 10,
+      weather_description: props.weather.weather[0].description,
+      max_temperature: Math.round(props.weather.main.temp_max * 10) / 10,
+      min_temperature: Math.round(props.weather.main.temp_min * 10) / 10,
+      sunrise_time: moment.unix(props.weather.sys.sunrise).format('LT'),
+      sunset_time: moment.unix(props.weather.sys.sunset).format('LT')
+    })
+
+    onMounted(() => {
+      let weatherstatus = props.weather.weather[0].main
+      if(weatherstatus.includes('Clouds')) {
+        main.value = 'fa-solid fa-cloud'
+      }
+      if(weatherstatus.includes('Thunderstorm') || weatherstatus.includes('Rain')) {
+        main.value = 'fa-solid fa-cloud-showers-heavy'
+      }
+      if(weatherstatus.includes('Clear')) {
+        main.value = 'fa-solid fa-sun'
+      }
+      if(weatherstatus.includes('Snow')) {
+        main.value = 'fa-solid fa-snowflake'
+      }
+      if(weatherstatus.includes('Haze') || weatherstatus.includes('Fog') || weatherstatus.includes('Mist')) {
+        main.value = 'fa-solid fa-smog'
+      }
+      if(weatherstatus.includes('Dust')) {
+        main.value = 'fa-solid fa-wind'
+      }
+    })
+
+    return {
+      main,
+      weatherData
     }
   }
 }
 </script>
-
-<style scoped>
-</style>
