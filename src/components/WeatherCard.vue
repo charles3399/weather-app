@@ -1,17 +1,17 @@
 <template>
-  <div class="p-3 flex justify-center">
-      <figure class="p-2 border-4 border-white rounded-xl 2xl:w-6/12 xl:w-6/12 lg:w-6/12 md:w-6/12 w-full shadow-2xl bg-transparent text-white tracking-wide">
+  <div class="p-3 flex justify-center items-center">
+      <figure :class="bg" class="p-2 rounded-xl 2xl:w-6/12 xl:w-6/12 lg:w-6/12 md:w-6/12 w-full shadow-2xl tracking-wide">
           <div class="text-center mb-3">
               <h3 class="text-xl font-bold tracking-wider">{{weatherData.city}}, {{weatherData.countryName}}</h3>
           </div>
           <div class="text-center mb-3">
-            <h3 class="text-6xl font-bold">{{weatherData.temperature}}&#176;</h3>
+            <h3 class="text-6xl font-bold">&#176;{{weatherData.temperature}}</h3>
             <p class="text-2xl"><i :class="main"></i> {{weatherData.weather_description}}</p>
-            <p class="text-lg">Feels like: {{weatherData.feelslike}}&#176;</p>
+            <p class="text-lg">Feels like: &#176;{{weatherData.feelslike}}</p>
           </div>
           <div class="text-center text-lg m-5 flex flex-row justify-center gap-8">
-            <p>Highest: <span class="font-bold">{{weatherData.max_temperature}}&#176;</span></p>
-            <p>Lowest: <span class="font-bold">{{weatherData.min_temperature}}&#176;</span></p>
+            <p>Highest: <span class="font-bold">&#176;{{weatherData.max_temperature}}</span></p>
+            <p>Lowest: <span class="font-bold">&#176;{{weatherData.min_temperature}}</span></p>
           </div>
           <div class="text-center m-1 flex flex-row justify-center gap-8">
             <div>
@@ -41,6 +41,7 @@ export default {
     }
   },
   setup(props) {
+    const bg = ref('')
     const main = ref('')
     const weatherData = ref({
       countryName: props.weather.sys.country,
@@ -50,33 +51,40 @@ export default {
       weather_description: props.weather.weather[0].description,
       max_temperature: Math.round(props.weather.main.temp_max * 10) / 10,
       min_temperature: Math.round(props.weather.main.temp_min * 10) / 10,
-      sunrise_time: moment.unix(props.weather.sys.sunrise).format('LT'),
-      sunset_time: moment.unix(props.weather.sys.sunset).format('LT')
+      sunrise_time: moment.utc(props.weather.sys.sunrise, 'X').add(props.weather.timezone, 'seconds').format('LT'),
+      sunset_time: moment.utc(props.weather.sys.sunset, 'X').add(props.weather.timezone, 'seconds').format('LT')
     })
 
     onMounted(() => {
       let weatherstatus = props.weather.weather[0].main
       if(weatherstatus.includes('Clouds')) {
         main.value = 'fa-solid fa-cloud'
+        bg.value = 'bg-gray-500 text-white'
       }
       if(weatherstatus.includes('Thunderstorm') || weatherstatus.includes('Rain')) {
         main.value = 'fa-solid fa-cloud-showers-heavy'
+        bg.value = 'bg-gray-600 text-white'
       }
       if(weatherstatus.includes('Clear')) {
         main.value = 'fa-solid fa-sun'
+        bg.value = 'bg-blue-500 text-white'
       }
       if(weatherstatus.includes('Snow')) {
         main.value = 'fa-solid fa-snowflake'
+        bg.value = 'bg-slate-200 text-gray-500'
       }
       if(weatherstatus.includes('Haze') || weatherstatus.includes('Fog') || weatherstatus.includes('Mist')) {
         main.value = 'fa-solid fa-smog'
+        bg.value = 'bg-gray-300 text-gray-700'
       }
       if(weatherstatus.includes('Dust')) {
         main.value = 'fa-solid fa-wind'
+        bg.value = 'bg-orange-300 text-gray-200'
       }
     })
 
     return {
+      bg,
       main,
       weatherData
     }

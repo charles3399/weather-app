@@ -3,10 +3,10 @@
     <Title />
     <div class="px-1 py-4 mt-1 text-center">
       <form @submit.prevent="getWeatherData">
-        <input v-model="cityName" type="text" placeholder="Search a city" class="p-4 rounded-full 2xl:w-3/6 xl:w-3/6 lg:w-3/6 md:w-3/6 w-full shadow-xl">
+        <input v-model="cityName" type="text" placeholder="Search a city or location" class="pb-1 border-b-2 border-gray-500 outline-none focus:border-gray-700 2xl:w-3/6 xl:w-3/6 lg:w-3/6 md:w-3/6 w-full font-bold uppercase tracking-wider placeholder-white placeholder-opacity-50 text-center text-white bg-transparent">
       </form>
     </div>
-      <i class="text-2xl text-white inline-block relative left-1/2 text-center fa-solid fa-temperature-half cursor-pointer" v-if="weatherData != ''" @click="changeUnit">&nbsp;{{ unitText }} &deg;</i>
+      <p class="text-3xl font-bold text-white inline-block relative left-1/2 text-center cursor-pointer" v-if="weatherData != ''" @click="changeUnit">&nbsp;&deg;{{ unitText }}</p>
     <div v-if="!loading">
       <WeatherCard :weather="weatherData" />
     </div>
@@ -48,9 +48,10 @@ export default {
         if(response.status >= 200 && response.status <= 299) {
           const data = await response.json()
           weatherData.value =  data
-          loading.value = false
           loadingMessage.value = 'Updating..'
           icon.value = 'fa-solid fa-magnifying-glass-location'
+          loading.value = false
+          console.log(data)
         }
         else {
           alert('No such city found or spelling error')
@@ -92,6 +93,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>
