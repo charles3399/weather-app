@@ -6,7 +6,7 @@
         <input v-model="cityName" type="text" placeholder="Search a city" class="p-4 rounded-full 2xl:w-3/6 xl:w-3/6 lg:w-3/6 md:w-3/6 w-full shadow-xl">
       </form>
     </div>
-      <i class="text-2xl text-white inline-block relative left-1/2 text-center fa-solid fa-temperature-half cursor-pointer" v-if="weatherData != ''" @click="changeUnit">&nbsp;{{ unitText }}</i>
+      <i class="text-2xl text-white inline-block relative left-1/2 text-center fa-solid fa-temperature-half cursor-pointer" v-if="weatherData != ''" @click="changeUnit">&nbsp;{{ unitText }} &deg;</i>
     <div v-if="!loading">
       <WeatherCard :weather="weatherData" />
     </div>
@@ -33,7 +33,7 @@ export default {
     const cityName = ref(null)
     const unitMode = ref('metric')
     const unitText = ref('C')
-    const apiKey = ref('fdd7b594a9c25f2b77bf2df3cb47f644')
+    const apiKey = ref(process.env.VUE_APP_KEY)
     const loading = ref(true)
     const loadingMessage = ref('Ang buhay ay weather weather lang')
 
@@ -53,7 +53,7 @@ export default {
           icon.value = 'fa-solid fa-magnifying-glass-location'
         }
         else {
-          alert('No such city found')
+          alert('No such city found or spelling error')
           location.reload()
         }
       }
