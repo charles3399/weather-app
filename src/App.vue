@@ -19,7 +19,7 @@
 <script>
 import Title from './components/Title.vue'
 import WeatherCard from './components/WeatherCard.vue'
-import {ref} from 'vue'
+import useData from './composables/useData'
 
 export default {
   name: 'App',
@@ -28,53 +28,17 @@ export default {
     WeatherCard
   },
   setup() {
-    const icon = ref('fa-solid fa-cloud-sun-rain')
-    const weatherData = ref([])
-    const cityName = ref(null)
-    const unitMode = ref('metric')
-    const unitText = ref('C')
-    const apiKey = ref(process.env.VUE_APP_KEY)
-    const loading = ref(true)
-    const loadingMessage = ref('Ang buhay ay weather weather lang')
-
-    const getWeatherData = async () => {
-      if(cityName.value == '' || cityName.value == null) {
-        alert('Please input a city')
-      }
-      else {
-        loading.value = true
-        cityName.value.trim().length
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
-        if(response.status >= 200 && response.status <= 299) {
-          const data = await response.json()
-          weatherData.value =  data
-          loadingMessage.value = 'Searching...'
-          icon.value = 'fa-solid fa-magnifying-glass-location'
-          loading.value = false
-        }
-        else {
-          alert('No such city found or spelling error')
-        }
-      }
-    }
-
-    const changeUnit = async () => {
-      if (cityName.value == '') {
-        alert('Please type a city before changing unit of measurement')
-      }
-      else {
-        loading.value = true
-
-        unitMode.value === 'metric' ? [unitMode.value = 'imperial', unitText.value = 'F'] : [unitMode.value = 'metric', unitText.value = 'C']
-
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
-        const data = await response.json()
-        weatherData.value = data
-        loadingMessage.value = 'Updating...'
-        icon.value = 'fa-solid fa-temperature-half'
-        loading.value = false
-      }
-    }
+    const {
+      icon,
+      weatherData,
+      cityName,
+      unitMode,
+      unitText,
+      loading,
+      loadingMessage,
+      getWeatherData,
+      changeUnit
+    } = useData()
 
     return {
       icon,
@@ -82,7 +46,6 @@ export default {
       cityName,
       unitMode,
       unitText,
-      apiKey,
       loading,
       loadingMessage,
       getWeatherData,
