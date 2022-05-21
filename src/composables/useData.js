@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import axios from 'axios'
 
 export default function useData() {
     const icon = ref('fa-solid fa-cloud-sun-rain')
@@ -17,9 +18,9 @@ export default function useData() {
       else {
         loading.value = true
         cityName.value.trim().length
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
         if(response.status >= 200 && response.status <= 299) {
-          const data = await response.json()
+          const data = await response.data
           weatherData.value =  data
           loadingMessage.value = 'Searching...'
           icon.value = 'fa-solid fa-magnifying-glass-location'
@@ -40,8 +41,8 @@ export default function useData() {
 
         unitMode.value === 'metric' ? [unitMode.value = 'imperial', unitText.value = 'F'] : [unitMode.value = 'metric', unitText.value = 'C']
 
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
-        const data = await response.json()
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
+        const data = await response.data
         weatherData.value = data
         loadingMessage.value = 'Updating...'
         icon.value = 'fa-solid fa-temperature-half'
