@@ -9,7 +9,7 @@ export default function useData() {
     const unitText = ref('C')
     const apiKey = ref(process.env.VUE_APP_KEY)
     const loading = ref(true)
-    const loadingMessage = ref('Ang buhay ay weather weather lang')
+    const loadingMessage = ref('What\'s the weather like? Type a country, city, or town!')
 
     const getWeatherData = async () => {
       if(cityName.value == '' || cityName.value == null) {
