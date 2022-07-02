@@ -6,7 +6,7 @@
         <input v-model="cityName" type="text" placeholder="Search a city or location" class="pb-1 border-b-2 border-gray-500 outline-none focus:border-gray-700 2xl:w-3/6 xl:w-3/6 lg:w-3/6 md:w-3/6 w-full font-bold uppercase tracking-wider placeholder-white placeholder-opacity-50 text-center text-white bg-transparent">
       </form>
     </div>
-      <p class="text-3xl inline-block relative font-bold text-white left-1/2 cursor-pointer" v-if=" weatherData != '' " @click="changeUnit">&deg;{{ unitText }}</p>
+      <p class="text-3xl inline-block relative font-bold text-white left-1/2 cursor-pointer" @click="changeUnit">&deg;{{ unitText }}</p>
     <div v-if="!loading">
       <WeatherCard :weather="weatherData" />
     </div>

@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import axios from 'axios'
 
 export default function useData() {
@@ -13,17 +13,18 @@ export default function useData() {
 
     const getWeatherData = async () => {
       if(cityName.value == '' || cityName.value == null) {
-        alert('Please input a city')
+        cityName.value = ''
+        loadingMessage.value = 'What\'s the weather like? Type a country, city, or town!'
       }
       else {
         loading.value = true
+        icon.value = 'fa-solid fa-magnifying-glass-location'
+        loadingMessage.value = 'Searching...'
         cityName.value.trim().length
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
         if(response.status >= 200 && response.status <= 299) {
           const data = await response.data
           weatherData.value =  data
-          loadingMessage.value = 'Searching...'
-          icon.value = 'fa-solid fa-magnifying-glass-location'
           loading.value = false
         }
         else {
@@ -49,6 +50,13 @@ export default function useData() {
         loading.value = false
       }
     }
+
+    watch(()=> cityName.value,
+      () => {
+        getWeatherData()
+      },
+      { deep: true }
+    )
 
     return {
       icon,
