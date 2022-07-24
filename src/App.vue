@@ -16,12 +16,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from 'vue'
 import Title from './components/Title.vue'
 import WeatherCard from './components/WeatherCard.vue'
 import useData from './composables/useData'
 
-export default {
+export default defineComponent({
   name: 'App',
   components: {
     Title,
@@ -52,5 +53,5 @@ export default {
       changeUnit
     }
   }
-}
+})
 </script>

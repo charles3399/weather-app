@@ -4,7 +4,7 @@ import axios from 'axios'
 export default function useData() {
     const icon = ref('fa-solid fa-cloud-sun-rain')
     const weatherData = ref([])
-    const cityName = ref(null)
+    const cityName = ref('')
     const unitMode = ref('metric')
     const unitText = ref('C')
     const apiKey = ref(process.env.VUE_APP_KEY)

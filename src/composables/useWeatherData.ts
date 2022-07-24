@@ -1,10 +1,32 @@
 import moment from 'moment'
 import { ref, onMounted } from 'vue'
 
-export default function useWeatherData(props) {
+export default function useWeatherData(props: { weather:
+  {
+    sys:
+    {
+      country: any;
+      sunrise: moment.MomentInput;
+      sunset: moment.MomentInput
+    };
+    name: any;
+    main:
+    {
+      feels_like: number;
+      temp: number;
+      temp_max: number;
+      temp_min: number };
+      weather:
+      {
+        main: any;
+        description: any;
+      }[];
+      timezone: moment.DurationInputArg1
+    }
+}) {
     const bg = ref('')
     const main = ref('')
-    const tempConvert = (temp) => {
+    const tempConvert = (temp: number) => {
       return Math.round(temp * 10) / 10
     }
     const weatherData = ref({
@@ -20,7 +42,7 @@ export default function useWeatherData(props) {
     })
 
     onMounted(() => {
-      let weatherstatus = props.weather.weather[0].main
+      const weatherstatus = props.weather.weather[0].main
       if(weatherstatus.includes('Clouds')) {
         main.value = 'fa-solid fa-cloud text-gray-700'
         bg.value = 'bg-gray-500 text-white'
