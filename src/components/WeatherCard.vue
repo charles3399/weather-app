@@ -29,10 +29,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import useWeatherData from './../composables/useWeatherData'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'WeatherCard',
   props: {
     weather: {
@@ -48,5 +49,5 @@ export default {
       weatherData
     }
   }
-}
+})
 </script>
