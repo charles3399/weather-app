@@ -1,21 +1,23 @@
 import moment from 'moment'
 import { ref, onMounted } from 'vue'
 
-export default function useWeatherData(props: { weather:
-  {
-    sys:
+export default function useWeatherData(props:
+  { weather:
     {
-      country: any;
-      sunrise: moment.MomentInput;
-      sunset: moment.MomentInput
-    };
-    name: any;
-    main:
-    {
-      feels_like: number;
-      temp: number;
-      temp_max: number;
-      temp_min: number };
+      sys:
+      {
+        country: any;
+        sunrise: moment.MomentInput;
+        sunset: moment.MomentInput
+      };
+      name: any;
+      main:
+      {
+        feels_like: number;
+        temp: number;
+        temp_max: number;
+        temp_min: number
+      };
       weather:
       {
         main: any;
