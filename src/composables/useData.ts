@@ -9,45 +9,57 @@ export default function useData() {
     const unitText = ref('C')
     const apiKey = ref(process.env.VUE_APP_KEY)
     const loading = ref(true)
-    const loadingMessage = ref('What\'s the weather like? Type a country, city, or town!')
+    const loadingMessage = ref('What\'s the weather look like? Type a country, city, or town!')
 
-    const getWeatherData = async () => {
-      if(cityName.value == '' || cityName.value == null) {
+    const getWeatherData = () => {
+      if(!cityName.value || !weatherData.value) {
         cityName.value = ''
-        loadingMessage.value = 'What\'s the weather like? Type a country, city, or town!'
       }
       else {
-        loading.value = true
-        icon.value = 'fa-solid fa-magnifying-glass-location'
-        loadingMessage.value = 'Searching...'
-        cityName.value.trim().length
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
-        if(response.status >= 200 && response.status <= 299) {
-          const data = await response.data
-          weatherData.value =  data
-          loading.value = false
-        }
-        else {
-          alert('No such city found or spelling error')
-        }
+        setTimeout(() => {
+          loading.value = true
+          icon.value = 'fa-solid fa-magnifying-glass-location'
+          loadingMessage.value = 'Searching...'
+          cityName.value.trim().length
+
+          axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
+            .then((response) => {
+              setTimeout(() => {
+                weatherData.value = response.data
+                loading.value = false
+              }, 1000);
+            })
+            .catch((error) => {
+              setTimeout(() => {
+                cityName.value = ''
+                icon.value = ''
+                loadingMessage.value = 'Sorry we can\'t find the place you\'re looking for...'
+              }, 1000);
+            })
+        }, 2000);
       }
     }
 
-    const changeUnit = async () => {
-      if (cityName.value == '') {
-        alert('Please type a city before changing unit of measurement')
+    const changeUnit = () => {
+      if (!weatherData.value) {
+        alert('Please search a city before changing unit of measurement')
       }
       else {
-        loading.value = true
+        setTimeout(() => {
+          loading.value = true
+          unitMode.value === 'metric' ? [unitMode.value = 'imperial', unitText.value = 'F'] : [unitMode.value = 'metric', unitText.value = 'C']
+          loadingMessage.value = 'Updating...'
 
-        unitMode.value === 'metric' ? [unitMode.value = 'imperial', unitText.value = 'F'] : [unitMode.value = 'metric', unitText.value = 'C']
-
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
-        const data = await response.data
-        weatherData.value = data
-        loadingMessage.value = 'Updating...'
-        icon.value = 'fa-solid fa-temperature-half'
-        loading.value = false
+          axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apiKey.value}&units=${unitMode.value}`)
+            .then((response) => {
+              weatherData.value = response.data
+              icon.value = 'fa-solid fa-temperature-half'
+              loading.value = false
+            })
+            .catch((error) => {
+              loading.value = false
+          })
+        }, 100);
       }
     }
 

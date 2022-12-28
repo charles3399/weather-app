@@ -40,7 +40,7 @@ export default defineComponent({
       type: Object
     }
   },
-  setup(props) {
+  setup(props: { weather: any }) {
     const { bg, main, weatherData } = useWeatherData(props)
 
     return {
