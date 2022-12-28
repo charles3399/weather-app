@@ -32,6 +32,7 @@ export default function useData() {
             .catch((error) => {
               setTimeout(() => {
                 cityName.value = ''
+                weatherData.value = []
                 icon.value = ''
                 loadingMessage.value = 'Sorry we can\'t find the place you\'re looking for...'
               }, 1000);
