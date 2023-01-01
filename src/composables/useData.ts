@@ -14,6 +14,7 @@ export default function useData() {
     const getWeatherData = () => {
       if(!cityName.value || !weatherData.value) {
         cityName.value = ''
+        weatherData.value = []
       }
       else {
         setTimeout(() => {
@@ -42,8 +43,9 @@ export default function useData() {
     }
 
     const changeUnit = () => {
-      if (!weatherData.value) {
-        alert('Please search a city before changing unit of measurement')
+      if(!cityName.value || !weatherData.value) {
+        cityName.value = ''
+        weatherData.value = []
       }
       else {
         setTimeout(() => {
@@ -58,6 +60,8 @@ export default function useData() {
               loading.value = false
             })
             .catch((error) => {
+              cityName.value = ''
+              weatherData.value = []
               loading.value = false
           })
         }, 100);
