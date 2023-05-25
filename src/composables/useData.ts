@@ -35,6 +35,7 @@ export default function useData() {
                 cityName.value = ''
                 weatherData.value = []
                 icon.value = ''
+                loading.value = false
                 loadingMessage.value = 'Sorry we can\'t find the place you\'re looking for...'
               }, 1000);
             })

@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import useWeatherData from './../composables/useWeatherData'
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  weather: Object,
+})
+
+const { bg, main, weatherData } = useWeatherData(props)
+</script>
+
 <template>
   <div class="p-3 flex justify-center items-center">
       <figure :class="bg" class="p-2 rounded-xl 2xl:w-6/12 xl:w-6/12 lg:w-6/12 md:w-6/12 w-full shadow-2xl tracking-wide">
@@ -28,26 +39,3 @@
       </figure>
   </div>
 </template>
-
-<script lang="ts">
-import useWeatherData from './../composables/useWeatherData'
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'WeatherCard',
-  props: {
-    weather: {
-      type: Object
-    }
-  },
-  setup(props: { weather: any }) {
-    const { bg, main, weatherData } = useWeatherData(props)
-
-    return {
-      bg,
-      main,
-      weatherData
-    }
-  }
-})
-</script>

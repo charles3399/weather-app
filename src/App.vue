@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import Title from './components/Title.vue'
+import WeatherCard from './components/WeatherCard.vue'
+import useData from './composables/useData'
+
+const {
+  icon,
+  weatherData,
+  cityName,
+  unitText,
+  loading,
+  loadingMessage,
+  getWeatherData,
+  changeUnit
+} = useData()
+
+</script>
+
 <template>
   <div class="m-4">
     <Title />
@@ -15,43 +33,3 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import {defineComponent} from 'vue'
-import Title from './components/Title.vue'
-import WeatherCard from './components/WeatherCard.vue'
-import useData from './composables/useData'
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    Title,
-    WeatherCard
-  },
-  setup() {
-    const {
-      icon,
-      weatherData,
-      cityName,
-      unitMode,
-      unitText,
-      loading,
-      loadingMessage,
-      getWeatherData,
-      changeUnit
-    } = useData()
-
-    return {
-      icon,
-      weatherData,
-      cityName,
-      unitMode,
-      unitText,
-      loading,
-      loadingMessage,
-      getWeatherData,
-      changeUnit
-    }
-  }
-})
-</script>
